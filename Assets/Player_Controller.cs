@@ -21,10 +21,10 @@ public class Player_Controller : MonoBehaviour
     void Update()
     {
         Raycast();
-        podePular();
+        Pular();
     }
 
-    void podePular()
+    void Pular()
     {
         if(Input.GetKeyDown("space")&&canJump==true)
         {
@@ -45,7 +45,6 @@ public class Player_Controller : MonoBehaviour
         else
         {
             canJump=false;
-            Debug.Log("era pra ficar chamando");
         }
         Debug.DrawRay(transform.position,Vector2.down*1.1f,Color.red);
     }
