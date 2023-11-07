@@ -8,6 +8,7 @@ using Unity.VisualScripting;
 
 public class AudioManager : MonoBehaviour
 {
+    private EventInstance musicEventInstance;
     public static AudioManager Instance {get; private set;}
 
    private void Awake()
@@ -32,7 +33,7 @@ public class AudioManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        InitializeMusic(FMODEvents.Instance.Music);
     }
 
     // Update is called once per frame
@@ -41,6 +42,11 @@ public class AudioManager : MonoBehaviour
         
     }
 
+    public void InitializeMusic(EventReference musicEventReference)
+    {
+        musicEventInstance = CreateEventInstance(musicEventReference);
+        musicEventInstance.start();
+    }
     public EventInstance CreateEventInstance(EventReference eventReference)
     {
         EventInstance eventInstance = RuntimeManager.CreateInstance(eventReference);

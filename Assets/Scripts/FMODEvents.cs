@@ -14,6 +14,9 @@ public class FMODEvents : MonoBehaviour
     [field:Header("JumpSFX")]
     [field:SerializeField] public EventReference Jump;
 
+    [field:Header("Music")]
+    [field:SerializeField] public EventReference Music;
+
    private void Awake()
    {
     if(Instance==null)

@@ -786,6 +786,13 @@ MonoBehaviour:
       Data3: 1271405983
       Data4: -1800166469
     Path: event:/Jump
+  Music:
+    Guid:
+      Data1: 418089660
+      Data2: 1259474500
+      Data3: -1787023202
+      Data4: -1945795168
+    Path: event:/Music
 --- !u!1 &1948719518
 GameObject:
   m_ObjectHideFlags: 0
