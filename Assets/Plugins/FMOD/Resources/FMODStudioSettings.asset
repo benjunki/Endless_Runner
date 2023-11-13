@@ -292,8 +292,8 @@ MonoBehaviour:
   switchSettingsMigration: 1
   HasSourceProject: 1
   HasPlatforms: 1
-  sourceProjectPath: C:/Users/User/Documents/FMOD Studio/FMOD_Audio_System_Runner/FMOD_Audio_System_Runner.fspro
-  sourceBankPath: C:/Users/User/Documents/FMOD Studio/FMOD_Audio_System_Runner/Build
+  sourceProjectPath: FMOD_Audio_System_Runner/FMOD_Audio_System_Runner.fspro
+  sourceBankPath: FMOD_Audio_System_Runner/Build
   sourceBankPathUnformatted: 
   BankRefreshCooldown: 5
   ShowBankRefreshWindow: 1
