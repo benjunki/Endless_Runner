@@ -10,16 +10,18 @@ using FMOD.Studio;
 public class Player_Controller : MonoBehaviour
 {
     [SerializeField]Rigidbody2D rb;
-    bool canJump;
+    [SerializeField] private bool canJump;
+    [SerializeField] private Animator animator;
     [SerializeField]float up=5;
     [SerializeField] private LayerMask chao;
     [SerializeField] private float raiochao=1.5f;
 
     [SerializeField] private EventInstance footsteps;
-    [SerializeField] private EventInstance jump;
+    //[SerializeField] private EventInstance jump;
     // Start is called before the first frame update
     void Start()
     {
+        animator=GetComponent<Animator>();
         rb=GetComponent<Rigidbody2D>();
         footsteps = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.footsteps);
     }
@@ -35,6 +37,8 @@ public class Player_Controller : MonoBehaviour
     {
         if(Input.GetKeyDown("space")&&canJump==true)
         {
+            animator.SetBool("OnGround", false);
+            animator.SetBool("OnAir", true);
             AudioManager.Instance.PlayOneShot(FMODEvents.Instance.Jump, this.transform.position);
             rb.velocity=Vector2.up*up;
         }
@@ -48,7 +52,10 @@ public class Player_Controller : MonoBehaviour
         RaycastHit2D jumphit = Physics2D.Raycast(transform.position, Vector2.down,raiochao, chao);
         if(jumphit)
         {
+            Debug.Log("esta encostando");
             canJump=true;
+            animator.SetBool("OnGround", true);
+            animator.SetBool("OnAir", false);
             PLAYBACK_STATE playbackState;
             footsteps.getPlaybackState(out playbackState);
             if(playbackState.Equals(PLAYBACK_STATE.STOPPED))
