@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class musicScript : MonoBehaviour
 {
-    public EventReference musicRef;
+    [SerializeField] private EventReference musicRef;
     EventInstance musica;
     // Start is called before the first frame update
     void Start()

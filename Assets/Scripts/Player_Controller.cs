@@ -18,10 +18,10 @@ public class Player_Controller : MonoBehaviour
 
     //[SerializeField] private EventInstance footsteps;
 
-    public EventReference foot;
+    [SerializeField] private EventReference foot;
 
-    public EventInstance FootSteps;
-    public EventReference SomPulo;
+    EventInstance FootSteps;
+    [SerializeField] private EventReference SomPulo;
     // Start is called before the first frame update
     void Start()
     {
