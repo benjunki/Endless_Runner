@@ -12,18 +12,23 @@ public class Player_Controller : MonoBehaviour
     [SerializeField]Rigidbody2D rb;
     [SerializeField] private bool canJump;
     [SerializeField] private Animator animator;
-    [SerializeField]float up=5;
+    [SerializeField] float up=5;
     [SerializeField] private LayerMask chao;
     [SerializeField] private float raiochao=1.5f;
 
-    [SerializeField] private EventInstance footsteps;
-    //[SerializeField] private EventInstance jump;
+    //[SerializeField] private EventInstance footsteps;
+
+    public EventReference foot;
+
+    public EventInstance FootSteps;
+    public EventReference SomPulo;
     // Start is called before the first frame update
     void Start()
     {
         animator=GetComponent<Animator>();
         rb=GetComponent<Rigidbody2D>();
-        footsteps = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.footsteps);
+        //footsteps = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.footsteps);
+        FootSteps=RuntimeManager.CreateInstance(foot);
     }
 
     // Update is called once per frame
@@ -39,7 +44,8 @@ public class Player_Controller : MonoBehaviour
         {
             animator.SetBool("OnGround", false);
             animator.SetBool("OnAir", true);
-            AudioManager.Instance.PlayOneShot(FMODEvents.Instance.Jump, this.transform.position);
+            //AudioManager.Instance.PlayOneShot(FMODEvents.Instance.Jump, this.transform.position);
+            PlayOneShot(SomPulo, this.transform.position);
             rb.velocity=Vector2.up*up;
         }
         else
@@ -52,22 +58,27 @@ public class Player_Controller : MonoBehaviour
         RaycastHit2D jumphit = Physics2D.Raycast(transform.position, Vector2.down,raiochao, chao);
         if(jumphit)
         {
-            Debug.Log("esta encostando");
+            //Debug.Log("esta encostando");
             canJump=true;
             animator.SetBool("OnGround", true);
             animator.SetBool("OnAir", false);
             PLAYBACK_STATE playbackState;
-            footsteps.getPlaybackState(out playbackState);
+            //footsteps.getPlaybackState(out playbackState);
+            FootSteps.getPlaybackState(out playbackState);
             if(playbackState.Equals(PLAYBACK_STATE.STOPPED))
             {
-                footsteps.start();
+                FootSteps.start();
             }
         }
         else
         {
             canJump=false;
-            footsteps.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            FootSteps.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         }
         Debug.DrawRay(transform.position,Vector2.down*1.1f,Color.red);
+    }
+    public void PlayOneShot(EventReference Pular, Vector3 WorldPos )
+    {
+        RuntimeManager.PlayOneShot(Pular, WorldPos);
     }
 }

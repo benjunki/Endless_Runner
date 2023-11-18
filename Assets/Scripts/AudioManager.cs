@@ -33,7 +33,7 @@ public class AudioManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InitializeMusic(FMODEvents.Instance.Music);
+        //InitializeMusic(FMODEvents.Instance.Music);
     }
 
     // Update is called once per frame
