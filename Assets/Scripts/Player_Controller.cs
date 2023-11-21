@@ -9,6 +9,9 @@ using FMOD.Studio;
 
 public class Player_Controller : MonoBehaviour
 {
+    private GameManager gm;
+
+    private AudioManager am;
     [SerializeField]Rigidbody2D rb;
     [SerializeField] private bool canJump;
     [SerializeField] private Animator animator;
@@ -29,6 +32,7 @@ public class Player_Controller : MonoBehaviour
         rb=GetComponent<Rigidbody2D>();
         //footsteps = AudioManager.Instance.CreateEventInstance(FMODEvents.Instance.footsteps);
         FootSteps=RuntimeManager.CreateInstance(foot);
+        gm=FindObjectOfType<GameManager>();
     }
 
     // Update is called once per frame
@@ -80,5 +84,13 @@ public class Player_Controller : MonoBehaviour
     public void PlayOneShot(EventReference Pular, Vector3 WorldPos )
     {
         RuntimeManager.PlayOneShot(Pular, WorldPos);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) 
+    {
+        if(other.CompareTag("Enemy"))
+        {
+            GameManager.Instance.GameOver();
+        }   
     }
 }
