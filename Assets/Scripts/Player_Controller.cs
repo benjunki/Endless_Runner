@@ -6,6 +6,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
+using JetBrains.Annotations;
 
 public class Player_Controller : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class Player_Controller : MonoBehaviour
     [SerializeField] float up=5;
     [SerializeField] private LayerMask chao;
     [SerializeField] private float raiochao=1.5f;
+    public float jumpTime;
+    private float jumpTimeCounter;
+    [SerializeField] private bool noar;
 
     //[SerializeField] private EventInstance footsteps;
 
@@ -44,20 +48,33 @@ public class Player_Controller : MonoBehaviour
 
     void Pular()
     {
-        if(Input.GetKeyDown("space")&&canJump==true)
+        if(Input.GetKeyDown("space")&& canJump==true)
         {
             animator.SetBool("OnGround", false);
             animator.SetBool("OnAir", true);
+            jumpTimeCounter=jumpTime;
             //AudioManager.Instance.PlayOneShot(FMODEvents.Instance.Jump, this.transform.position);
             PlayOneShot(SomPulo, this.transform.position);
             rb.velocity=Vector2.up*up;
         }
-        else
+        if(Input.GetKey("space") && canJump==true)
         {
-            return;
+            if(jumpTimeCounter>0)
+            {
+                rb.velocity=Vector2.up*up;
+                jumpTimeCounter-=Time.deltaTime;
+            }   
+            else if(jumpTimeCounter<=0)
+            {
+                canJump=false;
+            }
+        }
+        if(Input.GetKeyUp("space"))
+        {
+            canJump=false;
         }
     }
-    void Raycast()
+    public void Raycast()
     {
         RaycastHit2D jumphit = Physics2D.Raycast(transform.position, Vector2.down,raiochao, chao);
         if(jumphit)
@@ -76,7 +93,7 @@ public class Player_Controller : MonoBehaviour
         }
         else
         {
-            canJump=false;
+            //canJump=false;
             FootSteps.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         }
         Debug.DrawRay(transform.position,Vector2.down*1.1f,Color.red);
