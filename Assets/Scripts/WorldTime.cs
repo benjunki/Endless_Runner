@@ -10,16 +10,39 @@ using UnityEngine.Rendering.Universal;
 
     public class WorldTime: MonoBehaviour
     {
+    public static WorldTime Instance {get; private set;}
+    private void Awake()
+    {
+        _mlight = GetComponent<Light2D>();
+        _mstartTime = Time.time;
+        if(Instance==null)
+        {
+            Instance=this;
+        } 
+        else
+        {
+            DestroyImmediate(gameObject);
+        }
+    }
+
+   private void OnDestroy()
+   {
+    if(Instance==this)
+    {
+        Instance=null;
+    }
+   }
         public float state;
         public float duration = 5f;
         [SerializeField]private Gradient _mgradient;
         private Light2D _mlight;
         private float _mstartTime;
+        
+       
 
-        private void Awake()
+        private void Start()
         {
-            _mlight = GetComponent<Light2D>();
-            _mstartTime = Time.time;
+
         }
         private void Update()
         {

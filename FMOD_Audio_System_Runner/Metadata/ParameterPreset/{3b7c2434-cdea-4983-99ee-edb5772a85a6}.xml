@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{3b7c2434-cdea-4983-99ee-edb5772a85a6}">
+		<property name="name">
+			<value>EQ</value>
+		</property>
+		<relationship name="folder">
+			<destination>{e0c835a1-8494-4e9b-88bf-c740cc2e8803}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{67a3d016-aa9f-4684-aa0c-abe50c098beb}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{67a3d016-aa9f-4684-aa0c-abe50c098beb}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+		<property name="seekSpeed">
+			<value>0.37999999523162842</value>
+		</property>
+	</object>
+</objects>
